@@ -9,7 +9,6 @@ import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -36,6 +35,7 @@ public class MongoDAO {
 	
 	/***
 	 * Do not using MongoDB ReplicaSet
+	 * @author LimDK
 	 * @param url
 	 * @param port
 	 * @param database
@@ -50,6 +50,7 @@ public class MongoDAO {
 	
 	/***
 	 * Using MongoDB ReplicaSet
+	 * @author LimDK
 	 * @param urls
 	 * @param ports
 	 * @param database
@@ -67,6 +68,7 @@ public class MongoDAO {
 	
 	/***
 	 * MongoClient connection
+	 * @author LimDK
 	 * @return
 	 */
 	private MongoClient connectClient() {
@@ -86,6 +88,7 @@ public class MongoDAO {
 	
 	/***
 	 * MongoDatabase connection
+	 * @author LimDK
 	 * @param client
 	 * @return
 	 */
@@ -95,6 +98,7 @@ public class MongoDAO {
 	
 	/***
 	 * mongoDB connection
+	 * @author LimDK
 	 */
 	public void connectMongoDB() {
 		MONGO_CLIENT = connectClient();
@@ -103,6 +107,7 @@ public class MongoDAO {
 	
 	/***
 	 * mongoDB disconnection
+	 * @author LimDK
 	 */
 	public void disconnectMongoDB() {
 		MONGO_CLIENT.close();
@@ -110,6 +115,7 @@ public class MongoDAO {
 	
 	/***
 	 * insertOne <br>
+	 * @author LimDK
 	 * @param collectionName
 	 * @param param
 	 */
@@ -120,6 +126,7 @@ public class MongoDAO {
 	
 	/***
 	 * insertMany <br>
+	 * @author LimDK
 	 * @param collectionName
 	 * @param param
 	 */
@@ -132,6 +139,7 @@ public class MongoDAO {
 	
 	/***
 	 * selectAll <br>
+	 * @author LimDK
 	 * @param collectionName
 	 * @return List&ltDocument&gt
 	 */
@@ -140,11 +148,35 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		FindIterable<Document> iterator = collection.find();
-		for(Document doc : iterator) {
-			resultMap.add(doc);
-		}
+		resultMap = mongoUtils.getSelect(collection, null);
 		
 		return resultMap;
 	}
+	
+	/***
+	 * selectAll with option<br>
+	 * option List : {<br>
+	 * &emsp;"Document", <br>
+	 * &emsp;"Map", <br>
+	 * &emsp;"Json", <br>
+	 * &emsp;"String"<br>
+	 * }
+	 * @author LimDK
+	 * @param collectionName
+	 * @param option
+	 * @return Document : List&ltDocument&gt <br>
+	 * Map : List&ltMap&ltString, Object&gt&gt <br>
+	 * Json : List&ltJson&gt <br>
+	 * String : List&ltString&gt <br>
+	 */
+	public List<Object> selectAll(String collectionName, String option){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+
+		resultMap = mongoUtils.getSelect(collection, option);
+		
+		return resultMap;
+	}
+
 }
