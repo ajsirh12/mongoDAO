@@ -2,9 +2,9 @@
 
 ## Setting mongodb driver
 ### Select 1. Referenced Libraries
-- mongodb-driver-core-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core/3.12.7){:target="_blank"}
-- mongodb-driver-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/mongodb-driver/3.12.7){:target="_blank"}
-- bson-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/bson/3.12.7){:target="_blank"}
+- mongodb-driver-core-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core/3.12.7)
+- mongodb-driver-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/mongodb-driver/3.12.7)
+- bson-3.12.7.jar [[Download Link]](https://mvnrepository.com/artifact/org.mongodb/bson/3.12.7)
 
 ### Select 2. Maven Repository
 ```
