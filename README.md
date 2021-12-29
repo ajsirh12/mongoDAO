@@ -16,3 +16,26 @@
 </dependency>
 
 ```
+
+## Setting ObjectMapper
+### Select 1. Referenced Libraries
+- jackson-core-asl-1.9.13.jar [[Download Link]](https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl/1.9.13)
+- jackson-mapper-asl-1.9.13.jar [[Download Link]](https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl/1.9.13)
+
+### Select 2. Maven Repository
+```
+<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-core-asl</artifactId>
+    <version>1.9.13</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.9.13</version>
+</dependency>
+
+```
