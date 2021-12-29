@@ -8,10 +8,24 @@
 
 ### Select 2. Maven Repository
 ```
+<!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongodb-driver-core</artifactId>
+    <version>3.12.7</version>
+</dependency>
+
 <!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver -->
 <dependency>
     <groupId>org.mongodb</groupId>
     <artifactId>mongodb-driver</artifactId>
+    <version>3.12.7</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>bson</artifactId>
     <version>3.12.7</version>
 </dependency>
 
