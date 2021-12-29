@@ -17,6 +17,8 @@ import com.mongodb.client.MongoCollection;
 
 import mongo.exceptions.MongoException;
 
+import static mongo.utils.MongoConstant.*;
+
 public class MongoUtils {
 	
 	private static MongoUtils mongoUtils = null;
@@ -27,6 +29,7 @@ public class MongoUtils {
 	
 	/**
 	 * Singleton
+	 * @author LimDK
 	 * @return MongoUtils
 	 */
 	public static MongoUtils getInstance() {
@@ -132,24 +135,24 @@ public class MongoUtils {
 				result.add(doc);
 			}
 		}
-		else if(option.equals("Document")) {
+		else if(option.equals(DOCUMENT)) {
 			for(Document doc : iterator) {
 				result.add(doc);
 			}
 		}
-		else if(option.equals("Map")) {
+		else if(option.equals(MAP)) {
 			ObjectMapper mapper = new ObjectMapper();
 			for(Document doc : iterator) {
 				Map<String, Object> param = mapper.readValue(doc.toJson(), Map.class);
 				result.add(param);
 			}
 		}
-		else if(option.equals("Json")) {
+		else if(option.equals(JSON)) {
 			for(Document doc : iterator) {
 				result.add(doc.toJson());
 			}
 		}
-		else if(option.equals("String")) {
+		else if(option.equals(STRING)) {
 			for(Document doc : iterator) {
 				result.add(doc.toString());
 			}
