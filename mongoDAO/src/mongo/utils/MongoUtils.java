@@ -25,6 +25,10 @@ public class MongoUtils {
 		
 	}
 	
+	/**
+	 * Singleton
+	 * @return MongoUtils
+	 */
 	public static MongoUtils getInstance() {
 		if(mongoUtils == null) {
 			mongoUtils = new MongoUtils();
@@ -40,6 +44,7 @@ public class MongoUtils {
 	 * maxConnectionLifeTime(timeout) <br>
 	 * maxConnectionIdleTime(timeout * 20) <br>
 	 * 
+	 * @author LimDK
 	 * @param timeout
 	 * @return MongoClientOptions
 	 */
@@ -50,6 +55,7 @@ public class MongoUtils {
 	
 	/***
 	 * ServerAddress List
+	 * @author LimDK
 	 * @param urls
 	 * @param ports
 	 * @return List&ltServerAddress&gt
@@ -66,6 +72,7 @@ public class MongoUtils {
 	
 	/***
 	 * List&ltMap&ltString, Object&gt&gt change List&ltDocument&gt
+	 * @author LimDK
 	 * @param paramList
 	 * @return List&ltDocument&gt
 	 */
@@ -79,6 +86,13 @@ public class MongoUtils {
 		return docList;
 	}
 	
+	/**
+	 * 
+	 * @author LimDK
+	 * @param collection
+	 * @param option
+	 * @return
+	 */
 	public List<Object> getSelect(MongoCollection<Document> collection, String option) {
 		List<Object> result = new ArrayList<Object>();
 		
@@ -100,6 +114,16 @@ public class MongoUtils {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @author LimDK
+	 * @param iterator
+	 * @param option
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	private List<Object> getSelectOption(FindIterable<Document> iterator, String option) throws JsonParseException, JsonMappingException, IOException{
 		List<Object> result = new ArrayList<Object>();
 		
