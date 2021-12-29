@@ -9,7 +9,7 @@ public class MongoException {
 	}
 	
 	/***
-	 * Do not matching size (urls, ports) <br><br>
+	 * Do not matched size (urls, ports) <br><br>
 	 * throw new IllegalArgumentException("List size exception.  URL_LIST: " + urls.size() + " PORT_LIST: " + ports.size()) <br>
 	 * @param urls
 	 * @param ports
@@ -18,5 +18,14 @@ public class MongoException {
 		if(urls.size() != ports.size()) {
 			throw new IllegalArgumentException("List size exception.  URL_LIST: " + urls.size() + " PORT_LIST: " + ports.size());
 		}
+	}
+	
+	/***
+	 * Do not included in option parameter
+	 * throw new IllegalArgumentException("\"" + option + "\" is not option parameter.")<br>
+	 * @param option
+	 */
+	public static void chkOption(String option) {
+		throw new IllegalArgumentException("\"" + option + "\" is not option parameter.");
 	}
 }
