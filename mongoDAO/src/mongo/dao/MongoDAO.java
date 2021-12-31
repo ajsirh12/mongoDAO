@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -179,4 +181,45 @@ public class MongoDAO {
 		return resultMap;
 	}
 
+	/***
+	 * selectWhere <br>
+	 * @author LimDK
+	 * @param collectionName
+	 * @return List&ltDocument&gt
+	 */
+	public List<Object> selectWhere(String collectionName, Bson filters){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		resultMap = mongoUtils.getSelect(collection, null, filters);
+		
+		return resultMap;
+	}
+	
+	/***
+	 * selectWhere with option<br>
+	 * option List : {<br>
+	 * &emsp;"Document", <br>
+	 * &emsp;"Map", <br>
+	 * &emsp;"Json", <br>
+	 * &emsp;"String"<br>
+	 * }
+	 * @author LimDK
+	 * @param collectionName
+	 * @param option
+	 * @return Document : List&ltDocument&gt <br>
+	 * Map : List&ltMap&ltString, Object&gt&gt <br>
+	 * Json : List&ltJson&gt <br>
+	 * String : List&ltString&gt <br>
+	 */
+	public List<Object> selectWhere(String collectionName, String option, Bson filters){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		resultMap = mongoUtils.getSelect(collection, option, filters);
+		
+		return resultMap;
+	}
 }

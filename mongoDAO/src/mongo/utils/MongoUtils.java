@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -131,6 +132,35 @@ public class MongoUtils {
 		
 		return result;
 	}
+	
+	/**
+	 * @author LimDK
+	 * @param collection
+	 * @param option
+	 * @param filters
+	 * @return
+	 */
+	public List<Object> getSelect(MongoCollection<Document> collection, String option, Bson filters) {
+		List<Object> result = new ArrayList<Object>();
+		
+		FindIterable<Document> iterator = collection.find(filters);
+		
+		try {
+			result = getSelectOption(iterator, option);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	
 	/**
 	 * 
