@@ -1,5 +1,10 @@
 package mongo.utils;
 
+import static mongo.utils.MongoConstant.DOCUMENT;
+import static mongo.utils.MongoConstant.JSON;
+import static mongo.utils.MongoConstant.MAP;
+import static mongo.utils.MongoConstant.STRING;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +19,15 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 
 import mongo.exceptions.MongoException;
-
-import static mongo.utils.MongoConstant.*;
 
 public class MongoUtils {
 	
 	private static MongoUtils mongoUtils = null;
+	
+	private static final Filters FILTERS = null;
 
 	private MongoUtils() {
 		
@@ -37,6 +43,15 @@ public class MongoUtils {
 			mongoUtils = new MongoUtils();
 		}		
 		return mongoUtils;
+	}
+	
+	/**
+	 * get FILTERS
+	 * @author LimDK
+	 * @return Filters
+	 */
+	public static Filters getFilters() {
+		return FILTERS;
 	}
 	
 	/***
