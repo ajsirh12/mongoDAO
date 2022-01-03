@@ -238,4 +238,20 @@ public class MongoDAO {
 		
 		return result.getModifiedCount();
 	}
+	
+	/**
+	 * updateMany<br>
+	 * @author LimDK
+	 * @param collectionName
+	 * @param param
+	 * @param filters
+	 * @return long
+	 */
+	public long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		UpdateResult result = collection.updateMany(filters, new Document("$set", new Document(param)));
+		
+		return result.getModifiedCount();
+	}
 }
