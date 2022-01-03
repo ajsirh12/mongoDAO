@@ -12,6 +12,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 
 import mongo.exceptions.MongoException;
 import mongo.utils.MongoUtils;
@@ -229,9 +230,11 @@ public class MongoDAO {
 	 * @param param
 	 * @param filters
 	 */
-	public void updateOne(String collectionName, Map<String, Object> param, Bson filters) {
+	public long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		collection.updateOne(filters, new Document("$set", new Document(param)));
+		UpdateResult result = collection.updateOne(filters, new Document("$set", new Document(param)));
+		
+		return result.getModifiedCount();
 	}
 }
