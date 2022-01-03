@@ -10,7 +10,6 @@ import org.bson.conversions.Bson;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -221,5 +220,18 @@ public class MongoDAO {
 		resultMap = mongoUtils.getSelect(collection, option, filters);
 		
 		return resultMap;
+	}
+	
+	/**
+	 * updateOne<br>
+	 * @author LimDK
+	 * @param collectionName
+	 * @param param
+	 * @param filters
+	 */
+	public void updateOne(String collectionName, Map<String, Object> param, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		collection.updateOne(filters, new Document("$set", new Document(param)));
 	}
 }
