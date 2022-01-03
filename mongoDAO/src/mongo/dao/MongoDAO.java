@@ -229,6 +229,7 @@ public class MongoDAO {
 	 * @param collectionName
 	 * @param param
 	 * @param filters
+	 * @return long
 	 */
 	public long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
