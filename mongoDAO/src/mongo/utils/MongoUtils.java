@@ -27,7 +27,6 @@ import mongo.exceptions.MongoException;
 public class MongoUtils {
 	
 	private static MongoUtils mongoUtils = null;
-	
 	private static final Filters FILTERS = null;
 
 	private MongoUtils() {
