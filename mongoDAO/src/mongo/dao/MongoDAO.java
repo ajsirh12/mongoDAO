@@ -276,7 +276,7 @@ public class MongoDAO {
 	 * @author LimDK
 	 * @param collectionName
 	 * @param filters
-	 * @return deleteCount
+	 * @return long
 	 */
 	public long deleteMany(String collectionName, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
