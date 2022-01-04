@@ -12,6 +12,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import mongo.exceptions.MongoException;
@@ -229,7 +230,7 @@ public class MongoDAO {
 	 * @param collectionName
 	 * @param param
 	 * @param filters
-	 * @return long
+	 * @return updateCount
 	 */
 	public long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -245,7 +246,7 @@ public class MongoDAO {
 	 * @param collectionName
 	 * @param param
 	 * @param filters
-	 * @return long
+	 * @return updateCount
 	 */
 	public long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -253,5 +254,35 @@ public class MongoDAO {
 		UpdateResult result = collection.updateMany(filters, new Document("$set", new Document(param)));
 		
 		return result.getModifiedCount();
+	}
+	
+	/**
+	 * deleteOne<br>
+	 * @author LimDK
+	 * @param collectionName
+	 * @param filters
+	 * @return deleteCount
+	 */
+	public long deleteOne(String collectionName, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		DeleteResult result = collection.deleteOne(filters);
+		
+		return result.getDeletedCount();
+	}
+	
+	/**
+	 * deleteMany<br>
+	 * @author LimDK
+	 * @param collectionName
+	 * @param filters
+	 * @return deleteCount
+	 */
+	public long deleteMany(String collectionName, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		DeleteResult result = collection.deleteMany(filters);
+		
+		return result.getDeletedCount();
 	}
 }
