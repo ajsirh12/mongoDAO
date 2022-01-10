@@ -34,10 +34,11 @@ public class MongoDAO {
 	private List<String> URL_LIST;
 	private List<Integer> PORT_LIST;
 	
-	private static final int TIMEOUT = 3000;
+	private int TIMEOUT = 3000;
 	
 	/***
 	 * Do not using MongoDB ReplicaSet
+	 * timeout defalut value = 3000ms
 	 * @author LimDK
 	 * @param url
 	 * @param port
@@ -52,7 +53,26 @@ public class MongoDAO {
 	}
 	
 	/***
+	 * Do not using MongoDB ReplicaSet
+	 * timeout defalut value = 3000
+	 * @author LimDK
+	 * @param url
+	 * @param port
+	 * @param database
+	 * @param timeout
+	 */
+	public MongoDAO(String url, int port, String database, int timeout) {
+		URL = url;
+		PORT = port;
+		DB = database;
+		TIMEOUT = timeout;
+		
+		REPL_SET = false;
+	}
+	
+	/***
 	 * Using MongoDB ReplicaSet
+	 * timeout defalut value = 3000
 	 * @author LimDK
 	 * @param urls
 	 * @param ports
@@ -65,6 +85,27 @@ public class MongoDAO {
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
+		
+		REPL_SET = true;
+	}
+	
+	/***
+	 * Using MongoDB ReplicaSet
+	 * timeout defalut value = 3000
+	 * @author LimDK
+	 * @param urls
+	 * @param ports
+	 * @param database
+	 * @param timeout
+	 */
+	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout) {
+		// Check Size (urls, ports)
+		MongoException.chkSizeException(urls, ports);
+		
+		URL_LIST = urls;
+		PORT_LIST = ports;
+		DB = database;
+		TIMEOUT = timeout;
 		
 		REPL_SET = true;
 	}
