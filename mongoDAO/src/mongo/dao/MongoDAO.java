@@ -17,6 +17,7 @@ import com.mongodb.client.result.UpdateResult;
 
 import mongo.exceptions.MongoException;
 import mongo.utils.MongoUtils;
+import static mongo.utils.MongoConstant.SET;
 
 public class MongoDAO {
 
@@ -197,6 +198,25 @@ public class MongoDAO {
 		return resultMap;
 	}
 	
+	/**
+	 * selectAll<br>
+	 * search data from "skip" to "skip + limit" 
+	 * @author LimDK
+	 * @param collectionName
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public List<Object> selectAll(String collectionName, int skip, int limit){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		resultMap = mongoUtils.getSelect(collection, null, skip, limit);
+		
+		return resultMap;
+	}
+	
 	/***
 	 * selectAll with option<br>
 	 * option List : {<br>
@@ -222,6 +242,32 @@ public class MongoDAO {
 		
 		return resultMap;
 	}
+	
+	/**
+	 * selectAll with option<br>
+	 * option List : {<br>
+	 * &emsp;"Document", <br>
+	 * &emsp;"Map", <br>
+	 * &emsp;"Json", <br>
+	 * &emsp;"String"<br>
+	 * }<br>
+	 * search data from "skip" to "skip + limit" 
+	 * @author LimDK
+	 * @param collectionName
+	 * @param option
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public List<Object> selectAll(String collectionName, String option, int skip, int limit){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+
+		resultMap = mongoUtils.getSelect(collection, null, skip, limit);
+		
+		return resultMap;
+	}
 
 	/***
 	 * selectWhere <br>
@@ -235,6 +281,26 @@ public class MongoDAO {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		resultMap = mongoUtils.getSelect(collection, null, filters);
+		
+		return resultMap;
+	}
+	
+	/**
+	 * selectWhere <br>
+	 * search data from "skip" to "skip + limit" 
+	 * @author LimDK
+	 * @param collectionName
+	 * @param filters
+	 * @param skip
+	 * @param limit
+	 * @return List&ltDocument&gt
+	 */
+	public List<Object> selectWhere(String collectionName, Bson filters, int skip, int limit){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		resultMap = mongoUtils.getSelect(collection, null, filters, skip, limit);
 		
 		return resultMap;
 	}
@@ -266,6 +332,33 @@ public class MongoDAO {
 	}
 	
 	/**
+	 * selectWhere with option<br>
+	 * option List : {<br>
+	 * &emsp;"Document", <br>
+	 * &emsp;"Map", <br>
+	 * &emsp;"Json", <br>
+	 * &emsp;"String"<br>
+	 * }<br>
+	 * search data from "skip" to "skip + limit" 
+	 * @author LimDK
+	 * @param collectionName
+	 * @param option
+	 * @return Document : List&ltDocument&gt <br>
+	 * Map : List&ltMap&ltString, Object&gt&gt <br>
+	 * Json : List&ltJson&gt <br>
+	 * String : List&ltString&gt <br>
+	 */
+	public List<Object> selectWhere(String collectionName, String option, Bson filters, int skip, int limit){
+		List<Object> resultMap = new ArrayList<Object>();
+		
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		resultMap = mongoUtils.getSelect(collection, option, filters, skip, limit);
+		
+		return resultMap;
+	}
+	
+	/**
 	 * updateOne<br>
 	 * @author LimDK
 	 * @param collectionName
@@ -276,7 +369,7 @@ public class MongoDAO {
 	public long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		UpdateResult result = collection.updateOne(filters, new Document("$set", new Document(param)));
+		UpdateResult result = collection.updateOne(filters, new Document(SET, new Document(param)));
 		
 		return result.getModifiedCount();
 	}
@@ -292,7 +385,7 @@ public class MongoDAO {
 	public long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		UpdateResult result = collection.updateMany(filters, new Document("$set", new Document(param)));
+		UpdateResult result = collection.updateMany(filters, new Document(SET, new Document(param)));
 		
 		return result.getModifiedCount();
 	}

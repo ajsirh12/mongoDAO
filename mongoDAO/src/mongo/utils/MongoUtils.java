@@ -4,6 +4,7 @@ import static mongo.utils.MongoConstant.DOCUMENT;
 import static mongo.utils.MongoConstant.JSON;
 import static mongo.utils.MongoConstant.MAP;
 import static mongo.utils.MongoConstant.STRING;
+import static mongo.utils.MongoConstant.IDX_ID;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,6 +138,35 @@ public class MongoUtils {
 	 * @author LimDK
 	 * @param collection
 	 * @param option
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public List<Object> getSelect(MongoCollection<Document> collection, String option, int skip, int limit) {
+		List<Object> result = new ArrayList<Object>();
+		
+		FindIterable<Document> iterator = collection.find().sort(FILTERS.eq("_id", 1)).skip(skip).limit(limit);
+		
+		try {
+			result = getSelectOption(iterator, option);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @author LimDK
+	 * @param collection
+	 * @param option
 	 * @param filters
 	 * @return
 	 */
@@ -144,6 +174,37 @@ public class MongoUtils {
 		List<Object> result = new ArrayList<Object>();
 		
 		FindIterable<Document> iterator = collection.find(filters);
+		
+		try {
+			result = getSelectOption(iterator, option);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @author LimDK
+	 * @param collection
+	 * @param option
+	 * @param filters
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public List<Object> getSelect(MongoCollection<Document> collection, String option, Bson filters, int skip, int limit) {
+		List<Object> result = new ArrayList<Object>();
+		
+		FindIterable<Document> iterator = collection.find(filters).sort(FILTERS.eq(IDX_ID, 1)).skip(skip).limit(limit);;
 		
 		try {
 			result = getSelectOption(iterator, option);
