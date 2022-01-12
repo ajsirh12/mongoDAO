@@ -12,6 +12,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
@@ -418,5 +419,28 @@ public class MongoDAO {
 		DeleteResult result = collection.deleteMany(filters);
 		
 		return result.getDeletedCount();
+	}
+	
+	/**
+	 * @author LimDK
+	 * @param collectionName
+	 * @return
+	 */
+	public long selectAllCount(String collectionName){
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		return collection.countDocuments();
+	}
+	
+	/**
+	 * @author LimDK
+	 * @param collectionName
+	 * @param filters
+	 * @return
+	 */
+	public long selectWhereCount(String collectionName, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		return collection.countDocuments(filters);
 	}
 }
