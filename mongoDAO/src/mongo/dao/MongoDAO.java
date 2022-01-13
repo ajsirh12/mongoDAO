@@ -1,5 +1,7 @@
 package mongo.dao;
 
+import static mongo.utils.MongoConstant.SET;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +14,11 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import mongo.exceptions.MongoException;
 import mongo.utils.MongoUtils;
-import static mongo.utils.MongoConstant.SET;
 
 public class MongoDAO {
 
@@ -265,7 +265,7 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 
-		resultMap = mongoUtils.getSelect(collection, null, skip, limit);
+		resultMap = mongoUtils.getSelect(collection, option, skip, limit);
 		
 		return resultMap;
 	}
