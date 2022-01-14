@@ -1,29 +1,14 @@
 package mongo.utils;
 
-import static mongo.utils.MongoConstant.DOCUMENT;
-import static mongo.utils.MongoConstant.JSON;
-import static mongo.utils.MongoConstant.MAP;
-import static mongo.utils.MongoConstant.STRING;
-import static mongo.utils.MongoConstant.IDX_ID;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-
-import mongo.exceptions.MongoException;
 
 public class MongoUtils {
 	
@@ -104,52 +89,5 @@ public class MongoUtils {
 		}
 		
 		return docList;
-	}
-	
-	/**
-	 * 
-	 * @author LimDK
-	 * @param iterator
-	 * @param option
-	 * @return
-	 * @throws JsonParseException
-	 * @throws JsonMappingException
-	 * @throws IOException
-	 */
-	private List<Object> getSelectOption(FindIterable<Document> iterator, String option) throws JsonParseException, JsonMappingException, IOException{
-		List<Object> result = new ArrayList<Object>();
-		
-		if(option == null) {
-			for(Document doc : iterator) {
-				result.add(doc);
-			}
-		}
-		else if(option.equals(DOCUMENT)) {
-			for(Document doc : iterator) {
-				result.add(doc);
-			}
-		}
-		else if(option.equals(MAP)) {
-			ObjectMapper mapper = new ObjectMapper();
-			for(Document doc : iterator) {
-				Map<String, Object> param = mapper.readValue(doc.toJson(), Map.class);
-				result.add(param);
-			}
-		}
-		else if(option.equals(JSON)) {
-			for(Document doc : iterator) {
-				result.add(doc.toJson());
-			}
-		}
-		else if(option.equals(STRING)) {
-			for(Document doc : iterator) {
-				result.add(doc.toString());
-			}
-		}
-		else {
-			MongoException.chkOption(option);
-		}
-		
-		return result;
 	}
 }
