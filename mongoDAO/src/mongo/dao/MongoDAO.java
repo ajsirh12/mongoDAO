@@ -18,11 +18,14 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import mongo.exceptions.MongoException;
+import mongo.utils.MongoSelectUtils;
 import mongo.utils.MongoUtils;
 
 public class MongoDAO {
 
 	private static final MongoUtils mongoUtils = MongoUtils.getInstance();
+	// Add 20220114 LimDK
+	private static final MongoSelectUtils mongoSelect = MongoSelectUtils.getInstance();
 	
 	private MongoClient MONGO_CLIENT;
 	private MongoDatabase MONGO_DATABASE;
@@ -194,7 +197,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, null);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, null, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -213,7 +217,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, null, skip, limit);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, null, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -239,7 +244,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 
-		resultMap = mongoUtils.getSelect(collection, option);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, option, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -264,8 +270,9 @@ public class MongoDAO {
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
-
-		resultMap = mongoUtils.getSelect(collection, option, skip, limit);
+		
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, option, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -281,7 +288,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, null, filters);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, null, filters, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -301,7 +309,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, null, filters, skip, limit);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, null, filters, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -327,7 +336,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, option, filters);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, option, filters, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -354,7 +364,8 @@ public class MongoDAO {
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
-		resultMap = mongoUtils.getSelect(collection, option, filters, skip, limit);
+		// Refactor 20220114 LimDK
+		resultMap = mongoSelect.getSelect(collection, option, filters, skip, limit, null);
 		
 		return resultMap;
 	}
