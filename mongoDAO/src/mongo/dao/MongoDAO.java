@@ -8,9 +8,10 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
 import mongo.exceptions.MongoException;
+import mongo.dao.utils.MongoDAOUtils;
 import mongo.utils.MongoUtils;
 
-public class MongoDAO {
+public class MongoDAO extends MongoDAOUtils {
 
 	private static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
@@ -37,9 +38,13 @@ public class MongoDAO {
 	 * @param database
 	 */
 	public MongoDAO(String url, int port, String database) {
+		
 		URL = url;
 		PORT = port;
 		DB = database;
+		
+		connectMongoDB();
+		setMongoDatabase(MONGO_DATABASE);
 		
 		REPL_SET = false;
 	}
@@ -59,6 +64,9 @@ public class MongoDAO {
 		DB = database;
 		TIMEOUT = timeout;
 		
+		connectMongoDB();
+		setMongoDatabase(MONGO_DATABASE);
+		
 		REPL_SET = false;
 	}
 	
@@ -77,6 +85,9 @@ public class MongoDAO {
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
+		
+		connectMongoDB();
+		setMongoDatabase(MONGO_DATABASE);
 		
 		REPL_SET = true;
 	}
