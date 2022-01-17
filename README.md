@@ -62,10 +62,7 @@ public class Application {
         mongoDAO.connectMongoDB();
 		
         // mongoCRUD
-	MongoInsert mongoInsert = new MongoInsert(mongoDAO);
-	MongoSelect mongoSelect = new MongoSelect(mongoDAO);
-	MongoUpdate mongoUpdate = new MongoUpdate(mongoDAO);
-	MongoDelete mongoDelete = new MongoDelete(mongoDAO);
+	
 	//
         
         mongoDAO.disconnectMongoDB();
