@@ -69,4 +69,4 @@ public class Application {
 }
 ```
 ## mymongo-maven-repo
-- [[mymongo-maven-repo]](https://github.com/ajsirh12/mymongo-maven-repo)
+- [[https://github.com/ajsirh12/mymongo-maven-repo]](https://github.com/ajsirh12/mymongo-maven-repo)
