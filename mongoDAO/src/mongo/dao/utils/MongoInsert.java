@@ -16,7 +16,7 @@ public class MongoInsert {
 	
 	private static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
-	MongoInsert(MongoDatabase mongoDatebase) {
+	public MongoInsert(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
 	}
 	
@@ -26,7 +26,7 @@ public class MongoInsert {
 	 * @param collectionName
 	 * @param param
 	 */
-	void insertOne(String collectionName, Map<String, Object> param) {
+	public void insertOne(String collectionName, Map<String, Object> param) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		collection.insertOne(new Document(param));
 	}
@@ -37,7 +37,7 @@ public class MongoInsert {
 	 * @param collectionName
 	 * @param param
 	 */
-	void insertMany(String collectionName, List<Map<String, Object>> param) {
+	public void insertMany(String collectionName, List<Map<String, Object>> param) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		List<Document> docList = mongoUtils.makeDocList(param);

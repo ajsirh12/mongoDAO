@@ -17,7 +17,7 @@ public class MongoSelect {
 
 	private MongoDatabase MONGO_DATABASE;
 	
-	MongoSelect(MongoDatabase mongoDatebase) {
+	public MongoSelect(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
 	}
 	
@@ -27,7 +27,7 @@ public class MongoSelect {
 	 * @param collectionName
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectAll(String collectionName){
+	public List<Object> selectAll(String collectionName){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -47,7 +47,7 @@ public class MongoSelect {
 	 * @param limit
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectAll(String collectionName, int skip, int limit){
+	public List<Object> selectAll(String collectionName, int skip, int limit){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -74,7 +74,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectAll(String collectionName, String option){
+	public List<Object> selectAll(String collectionName, String option){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -104,7 +104,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectAll(String collectionName, String option, int skip, int limit){
+	public List<Object> selectAll(String collectionName, String option, int skip, int limit){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -121,7 +121,7 @@ public class MongoSelect {
 	 * @param collectionName
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectWhere(String collectionName, Bson filters){
+	public List<Object> selectWhere(String collectionName, Bson filters){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -142,7 +142,7 @@ public class MongoSelect {
 	 * @param limit
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectWhere(String collectionName, Bson filters, int skip, int limit){
+	public List<Object> selectWhere(String collectionName, Bson filters, int skip, int limit){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -170,7 +170,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectWhere(String collectionName, String option, Bson filters){
+	public List<Object> selectWhere(String collectionName, String option, Bson filters){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -201,7 +201,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectWhere(String collectionName, String option, Bson filters, int skip, int limit){
+	public List<Object> selectWhere(String collectionName, String option, Bson filters, int skip, int limit){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -219,7 +219,7 @@ public class MongoSelect {
 	 * @param sort : null is default {"_id":1}
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectAll(String collectionName, Bson sort){
+	public List<Object> selectAll(String collectionName, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -240,7 +240,7 @@ public class MongoSelect {
 	 * @param sort : null is default {"_id":1}
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectAll(String collectionName, int skip, int limit, Bson sort){
+	public List<Object> selectAll(String collectionName, int skip, int limit, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -268,7 +268,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectAll(String collectionName, String option, Bson sort){
+	public List<Object> selectAll(String collectionName, String option, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -299,7 +299,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectAll(String collectionName, String option, int skip, int limit, Bson sort){
+	public List<Object> selectAll(String collectionName, String option, int skip, int limit, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -317,7 +317,7 @@ public class MongoSelect {
 	 * @param sort : null is default {"_id":1}
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectWhere(String collectionName, Bson filters, Bson sort){
+	public List<Object> selectWhere(String collectionName, Bson filters, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -339,7 +339,7 @@ public class MongoSelect {
 	 * @param sort : null is default {"_id":1}
 	 * @return List&ltDocument&gt
 	 */
-	List<Object> selectWhere(String collectionName, Bson filters, int skip, int limit, Bson sort){
+	public List<Object> selectWhere(String collectionName, Bson filters, int skip, int limit, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -368,7 +368,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectWhere(String collectionName, String option, Bson filters, Bson sort){
+	public List<Object> selectWhere(String collectionName, String option, Bson filters, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -400,7 +400,7 @@ public class MongoSelect {
 	 * Json : List&ltJson&gt <br>
 	 * String : List&ltString&gt <br>
 	 */
-	List<Object> selectWhere(String collectionName, String option, Bson filters, int skip, int limit, Bson sort){
+	public List<Object> selectWhere(String collectionName, String option, Bson filters, int skip, int limit, Bson sort){
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
@@ -416,7 +416,7 @@ public class MongoSelect {
 	 * @param collectionName
 	 * @return
 	 */
-	long selectAllCount(String collectionName){
+	public long selectAllCount(String collectionName){
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		return collection.countDocuments();
@@ -428,7 +428,7 @@ public class MongoSelect {
 	 * @param filters
 	 * @return
 	 */
-	long selectWhereCount(String collectionName, Bson filters) {
+	public long selectWhereCount(String collectionName, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		return collection.countDocuments(filters);

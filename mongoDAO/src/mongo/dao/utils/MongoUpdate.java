@@ -15,7 +15,7 @@ public class MongoUpdate {
 	
 	private MongoDatabase MONGO_DATABASE;
 	
-	MongoUpdate(MongoDatabase mongoDatebase) {
+	public MongoUpdate(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
 	}
 
@@ -27,7 +27,7 @@ public class MongoUpdate {
 	 * @param filters
 	 * @return updateCount
 	 */
-	long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
+	public long updateOne(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		UpdateResult result = collection.updateOne(filters, new Document(SET, new Document(param)));
@@ -43,7 +43,7 @@ public class MongoUpdate {
 	 * @param filters
 	 * @return updateCount
 	 */
-	long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
+	public long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		UpdateResult result = collection.updateMany(filters, new Document(SET, new Document(param)));

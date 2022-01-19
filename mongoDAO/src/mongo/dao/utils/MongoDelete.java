@@ -11,7 +11,7 @@ public class MongoDelete {
 
 	private MongoDatabase MONGO_DATABASE;
 	
-	MongoDelete(MongoDatabase mongoDatebase) {
+	public MongoDelete(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
 	}
 	
@@ -22,7 +22,7 @@ public class MongoDelete {
 	 * @param filters
 	 * @return deleteCount
 	 */
-	long deleteOne(String collectionName, Bson filters) {
+	public long deleteOne(String collectionName, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		DeleteResult result = collection.deleteOne(filters);
@@ -37,7 +37,7 @@ public class MongoDelete {
 	 * @param filters
 	 * @return deleteCount
 	 */
-	long deleteMany(String collectionName, Bson filters) {
+	public long deleteMany(String collectionName, Bson filters) {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		DeleteResult result = collection.deleteMany(filters);
