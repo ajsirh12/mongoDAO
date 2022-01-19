@@ -60,9 +60,9 @@ public class Application {
     public static void main(String[] args) {
         MongoDAO mongoDAO = new MongoDAO(URL, PORT, DB);
 	
-        // mongoCRUD
+	mongoDAO.connectMongoDB();
 	
-	//
+        // mongoCRUD
         
         mongoDAO.disconnectMongoDB();
     }
