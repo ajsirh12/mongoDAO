@@ -68,7 +68,9 @@ public class MongoUtils {
 	public List<ServerAddress> makeServerAddressList(List<String> urls, List<Integer> ports){
 		List<ServerAddress> result = new ArrayList<ServerAddress>();
 		
-		for(int i=0; i<urls.size(); i++) {
+		int size = urls.size()<=ports.size()?urls.size():ports.size();
+		
+		for(int i=0; i<size; i++) {
 			result.add(new ServerAddress(urls.get(i), ports.get(i)));
 		}
 		

@@ -14,7 +14,6 @@ import mongo.dao.utils.MongoDelete;
 import mongo.dao.utils.MongoInsert;
 import mongo.dao.utils.MongoSelect;
 import mongo.dao.utils.MongoUpdate;
-import mongo.exceptions.MongoException;
 import mongo.utils.MongoUtils;
 
 public class MongoDAO {
@@ -42,14 +41,13 @@ public class MongoDAO {
 	
 	/***
 	 * Do not using MongoDB ReplicaSet
-	 * timeout defalut value = 3000ms
+	 * timeout default value = 3000ms
 	 * @author LimDK
 	 * @param url
 	 * @param port
 	 * @param database
 	 */
 	public MongoDAO(String url, int port, String database) {
-		
 		URL = url;
 		PORT = port;
 		DB = database;
@@ -59,7 +57,7 @@ public class MongoDAO {
 	
 	/***
 	 * Do not using MongoDB ReplicaSet
-	 * timeout defalut value = 3000
+	 * timeout default value = 3000
 	 * @author LimDK
 	 * @param url
 	 * @param port
@@ -77,16 +75,14 @@ public class MongoDAO {
 	
 	/***
 	 * Using MongoDB ReplicaSet
-	 * timeout defalut value = 3000
+	 * timeout default value = 3000
 	 * @author LimDK
 	 * @param urls
 	 * @param ports
 	 * @param database
+	 * @throws MongoConstructorException 
 	 */
 	public MongoDAO(List<String> urls, List<Integer> ports, String database) {
-		// Check Size (urls, ports)
-		MongoException.chkSizeException(urls, ports);
-		
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
@@ -96,17 +92,14 @@ public class MongoDAO {
 	
 	/***
 	 * Using MongoDB ReplicaSet
-	 * timeout defalut value = 3000
+	 * timeout default value = 3000
 	 * @author LimDK
 	 * @param urls
 	 * @param ports
 	 * @param database
 	 * @param timeout
 	 */
-	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout) {
-		// Check Size (urls, ports)
-		MongoException.chkSizeException(urls, ports);
-		
+	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout) {			
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
@@ -165,6 +158,9 @@ public class MongoDAO {
 		MONGO_CLIENT.close();
 	}
 	
+	/**
+	 * Create MongoCRUD 
+	 */
 	private void setMongoDatabase() {
 		mongoInsert = new MongoInsert(MONGO_DATABASE);
 		mongoSelect = new MongoSelect(MONGO_DATABASE);

@@ -21,7 +21,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
-import mongo.exceptions.MongoException;
+import mongo.exceptions.MongoIllegalOptionException;
 
 public class MongoSelectUtils {
 
@@ -118,8 +118,9 @@ public class MongoSelectUtils {
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
 	 * @throws IOException
+	 * @throws MongoIllegalOptionException 
 	 */
-	private List<Object> getSelectOption(FindIterable<Document> iterator, String option) throws JsonParseException, JsonMappingException, IOException{
+	private List<Object> getSelectOption(FindIterable<Document> iterator, String option) throws JsonParseException, JsonMappingException, IOException, MongoIllegalOptionException{
 		List<Object> result = new ArrayList<Object>();
 		
 		if(option == null) {
@@ -150,7 +151,7 @@ public class MongoSelectUtils {
 			}
 		}
 		else {
-			MongoException.chkOption(option);
+			throw new MongoIllegalOptionException(option);
 		}
 		
 		return result;
