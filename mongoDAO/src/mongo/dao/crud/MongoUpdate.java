@@ -1,4 +1,4 @@
-package mongo.dao.utils;
+package mongo.dao.crud;
 
 import static mongo.utils.MongoConstant.SET;
 

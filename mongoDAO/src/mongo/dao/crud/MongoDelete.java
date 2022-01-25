@@ -1,4 +1,4 @@
-package mongo.dao.utils;
+package mongo.dao.crud;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
