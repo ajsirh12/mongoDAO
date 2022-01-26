@@ -10,34 +10,34 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
-import mongo.dao.utils.MongoDelete;
-import mongo.dao.utils.MongoInsert;
-import mongo.dao.utils.MongoSelect;
-import mongo.dao.utils.MongoUpdate;
+import mongo.dao.crud.MongoDelete;
+import mongo.dao.crud.MongoInsert;
+import mongo.dao.crud.MongoSelect;
+import mongo.dao.crud.MongoUpdate;
 import mongo.utils.MongoUtils;
 
 public class MongoDAO {
 
-	private static final MongoUtils mongoUtils = MongoUtils.getInstance();
+	protected static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
-	private MongoInsert mongoInsert;
-	private MongoSelect mongoSelect;
-	private MongoUpdate mongoUpdate;
-	private MongoDelete mongoDelete;
+	protected MongoInsert mongoInsert;
+	protected MongoSelect mongoSelect;
+	protected MongoUpdate mongoUpdate;
+	protected MongoDelete mongoDelete;
 	
-	private MongoClient MONGO_CLIENT;
-	private MongoDatabase MONGO_DATABASE;
+	protected MongoClient MONGO_CLIENT;
+	protected MongoDatabase MONGO_DATABASE;
 	
-	private boolean REPL_SET = false;
+	protected boolean REPL_SET = false;
 	
-	private String URL;
-	private int PORT;
-	private String DB;
+	protected String URL;
+	protected int PORT;
+	protected String DB;
 	
-	private List<String> URL_LIST;
-	private List<Integer> PORT_LIST;
+	protected List<String> URL_LIST;
+	protected List<Integer> PORT_LIST;
 	
-	private int TIMEOUT = 3000;
+	protected int TIMEOUT = 3000;
 	
 	/***
 	 * Do not using MongoDB ReplicaSet
@@ -113,7 +113,7 @@ public class MongoDAO {
 	 * @author LimDK
 	 * @return
 	 */
-	private MongoClient connectClient() {
+	protected MongoClient connectClient() {
 		MongoClient client = null;
 		
 		MongoClientOptions options = mongoUtils.setMongoOptions(TIMEOUT);
@@ -134,7 +134,7 @@ public class MongoDAO {
 	 * @param client
 	 * @return
 	 */
-	private MongoDatabase connectDB(MongoClient client) {
+	protected MongoDatabase connectDB(MongoClient client) {
 		return client.getDatabase(DB);
 	}
 	
@@ -161,7 +161,7 @@ public class MongoDAO {
 	/**
 	 * Create MongoCRUD 
 	 */
-	private void setMongoDatabase() {
+	protected void setMongoDatabase() {
 		mongoInsert = new MongoInsert(MONGO_DATABASE);
 		mongoSelect = new MongoSelect(MONGO_DATABASE);
 		mongoUpdate = new MongoUpdate(MONGO_DATABASE);
