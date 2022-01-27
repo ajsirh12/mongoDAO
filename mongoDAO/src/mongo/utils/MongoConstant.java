@@ -1,26 +1,20 @@
 package mongo.utils;
 
-public class MongoConstant {
-
-	private MongoConstant() {
-		
+public enum MongoConstant {
+	DOCUMENT("DOCUMENT"),
+	MAP("MAP"),
+	JSON("JSON"),
+	STRING("STRING"),
+	IDX_ID("_id"),
+	SET("$set");
+	
+	private final String value;
+	
+	MongoConstant(String value) {
+		this.value = value;
 	}
 	
-	/**
-	 * select Options
-	 */
-	public static final String DOCUMENT = "Document"; 
-	public static final String MAP = "Map";
-	public static final String JSON = "Json";
-	public static final String STRING = "String";
-	
-	/**
-	 * index
-	 */
-	public static final String IDX_ID = "_id";
-	
-	/**
-	 * update set
-	 */
-	public static final String SET = "$set";
+	public String getValue() {
+		return this.value;
+	}
 }

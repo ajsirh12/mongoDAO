@@ -1,11 +1,5 @@
 package mongo.utils;
 
-import static mongo.utils.MongoConstant.DOCUMENT;
-import static mongo.utils.MongoConstant.IDX_ID;
-import static mongo.utils.MongoConstant.JSON;
-import static mongo.utils.MongoConstant.MAP;
-import static mongo.utils.MongoConstant.STRING;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +22,7 @@ public class MongoSelectUtils {
 	private static MongoSelectUtils mongoSelect = null;
 	private static final Filters FILTERS = null;
 	
-	private static final Bson sortById = FILTERS.eq(IDX_ID, 1);
+	private static final Bson sortById = FILTERS.eq(MongoConstant.IDX_ID.getValue(), 1);
 	
 	private MongoSelectUtils() {
 		
@@ -128,24 +122,24 @@ public class MongoSelectUtils {
 				result.add(doc);
 			}
 		}
-		else if(option.equals(DOCUMENT)) {
+		else if(option.toUpperCase().equals(MongoConstant.DOCUMENT.getValue())) {
 			for(Document doc : iterator) {
 				result.add(doc);
 			}
 		}
-		else if(option.equals(MAP)) {
+		else if(option.toUpperCase().equals(MongoConstant.MAP.getValue())) {
 			ObjectMapper mapper = new ObjectMapper();
 			for(Document doc : iterator) {
 				Map<String, Object> param = mapper.readValue(doc.toJson(), Map.class);
 				result.add(param);
 			}
 		}
-		else if(option.equals(JSON)) {
+		else if(option.toUpperCase().equals(MongoConstant.JSON.getValue())) {
 			for(Document doc : iterator) {
 				result.add(doc.toJson());
 			}
 		}
-		else if(option.equals(STRING)) {
+		else if(option.toUpperCase().equals(MongoConstant.STRING.getValue())) {
 			for(Document doc : iterator) {
 				result.add(doc.toString());
 			}
