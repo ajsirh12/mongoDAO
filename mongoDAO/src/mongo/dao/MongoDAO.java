@@ -508,6 +508,18 @@ public class MongoDAO {
 	public long updateMany(String collectionName, Map<String, Object> param, Bson filters) {
 		return mongoUpdate.updateMany(collectionName, param, filters);
 	}
+	
+	/**
+	 * replaceOne
+	 * @author LimDK
+	 * @param collectionName
+	 * @param param
+	 * @param filters
+	 * @return replaceCount
+	 */
+	public long replaceOne(String collectionName, Map<String, Object> param, Bson filters) {
+		return mongoUpdate.replaceOne(collectionName, param, filters);
+	}
 
 	/**
 	 * deleteOne<br>

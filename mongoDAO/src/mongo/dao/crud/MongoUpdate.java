@@ -50,4 +50,20 @@ public class MongoUpdate {
 		
 		return result.getModifiedCount();
 	}
+	
+	/**
+	 * replaceOne
+	 * @author LimDK
+	 * @param collectionName
+	 * @param param
+	 * @param filters
+	 * @return replaceCount
+	 */
+	public long replaceOne(String collectionName, Map<String, Object> param, Bson filters) {
+		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
+		
+		UpdateResult result = collection.replaceOne(filters, new Document(param));
+		
+		return result.getModifiedCount();
+	}
 }
