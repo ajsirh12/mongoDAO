@@ -16,7 +16,7 @@ import mongo.dao.crud.MongoSelect;
 import mongo.dao.crud.MongoUpdate;
 import mongo.utils.MongoUtils;
 
-public class MongoDAO {
+public class MongoDAO implements AutoCloseable {
 
 	protected static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
@@ -52,6 +52,8 @@ public class MongoDAO {
 		PORT = port;
 		DB = database;
 		
+		connectMongoDB();
+		
 		REPL_SET = false;
 	}
 	
@@ -70,6 +72,8 @@ public class MongoDAO {
 		DB = database;
 		TIMEOUT = timeout;
 		
+		connectMongoDB();
+		
 		REPL_SET = false;
 	}
 	
@@ -86,6 +90,8 @@ public class MongoDAO {
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
+
+		connectMongoDB();
 		
 		REPL_SET = true;
 	}
@@ -104,6 +110,8 @@ public class MongoDAO {
 		PORT_LIST = ports;
 		DB = database;
 		TIMEOUT = timeout;
+
+		connectMongoDB();
 		
 		REPL_SET = true;
 	}
@@ -143,9 +151,13 @@ public class MongoDAO {
 	 * @author LimDK
 	 */
 	public void connectMongoDB() {
-		MONGO_CLIENT = connectClient();
-		MONGO_DATABASE = connectDB(MONGO_CLIENT);
-
+		if(MONGO_CLIENT == null) {
+			MONGO_CLIENT = connectClient();
+		}
+		if(MONGO_DATABASE == null) {
+			MONGO_DATABASE = connectDB(MONGO_CLIENT);	
+		}
+		
 		// 20220117 LimDK add setCRUD
 		setMongoDatabase();
 	}
@@ -155,7 +167,9 @@ public class MongoDAO {
 	 * @author LimDK
 	 */
 	public void disconnectMongoDB() {
+		MONGO_DATABASE = null;
 		MONGO_CLIENT.close();
+		MONGO_CLIENT = null;
 	}
 	
 	/**
@@ -541,6 +555,12 @@ public class MongoDAO {
 	 */
 	public long deleteMany(String collectionName, Bson filters) {
 		return mongoDelete.deleteMany(collectionName, filters);
+	}
+
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub
+		disconnectMongoDB();
 	}
 
 }
