@@ -17,13 +17,13 @@ public class MongoUpdate {
 	
 	private static MongoUpdate mongoUpdate = null;
 	
-	private MongoUpdate() {
-		
+	private MongoUpdate(MongoDatabase mongoDatebase) {
+		MONGO_DATABASE = mongoDatebase;
 	}
 	
-	public static MongoUpdate getInstance() {
+	public static MongoUpdate getInstance(MongoDatabase mongoDatebase) {
 		if(mongoUpdate == null) {
-			mongoUpdate = new MongoUpdate();
+			mongoUpdate = new MongoUpdate(mongoDatebase);
 		}
 		return mongoUpdate;
 	}

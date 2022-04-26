@@ -13,13 +13,13 @@ public class MongoDelete {
 
 	private static MongoDelete mongoDelete = null;
 
-	private MongoDelete() {
-		
+	private MongoDelete(MongoDatabase mongoDatebase) {
+		MONGO_DATABASE = mongoDatebase;
 	}
 	
-	public static MongoDelete getInstance() {
+	public static MongoDelete getInstance(MongoDatabase mongoDatebase) {
 		if(mongoDelete == null) {
-			mongoDelete = new MongoDelete();
+			mongoDelete = new MongoDelete(mongoDatebase);
 		}
 		return mongoDelete;
 	}

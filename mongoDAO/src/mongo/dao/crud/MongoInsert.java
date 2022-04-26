@@ -18,13 +18,13 @@ public class MongoInsert {
 	
 	private static MongoInsert mongoInsert = null;
 	
-	private MongoInsert() {
-		
+	private MongoInsert(MongoDatabase mongoDatebase) {
+		MONGO_DATABASE = mongoDatebase;
 	}
 	
-	public static MongoInsert getInstance() {
+	public static MongoInsert getInstance(MongoDatabase mongoDatebase) {
 		if(mongoInsert == null) {
-			mongoInsert = new MongoInsert();
+			mongoInsert = new MongoInsert(mongoDatebase);
 		}
 		return mongoInsert;
 	}

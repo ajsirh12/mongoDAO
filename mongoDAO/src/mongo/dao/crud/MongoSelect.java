@@ -19,13 +19,13 @@ public class MongoSelect {
 	
 	private static MongoSelect mongoSelect = null;
 	
-	private MongoSelect() {
-		
+	private MongoSelect(MongoDatabase mongoDatebase) {
+		MONGO_DATABASE = mongoDatebase;
 	}
 	
-	public static MongoSelect getInstance() {
+	public static MongoSelect getInstance(MongoDatabase mongoDatebase) {
 		if(mongoSelect == null) {
-			mongoSelect = new MongoSelect();
+			mongoSelect = new MongoSelect(mongoDatebase);
 		}
 		return mongoSelect;
 	}
