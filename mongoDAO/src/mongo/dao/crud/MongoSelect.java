@@ -13,12 +13,21 @@ import mongo.utils.MongoSelectUtils;
 
 public class MongoSelect {
 	
-	private static final MongoSelectUtils mongoSelect = MongoSelectUtils.getInstance();
+	private static final MongoSelectUtils mongoSelectUtils = MongoSelectUtils.getInstance();
 
 	private MongoDatabase MONGO_DATABASE;
 	
-	public MongoSelect(MongoDatabase mongoDatebase) {
-		MONGO_DATABASE = mongoDatebase;
+	private static MongoSelect mongoSelect = null;
+	
+	private MongoSelect() {
+		
+	}
+	
+	public static MongoSelect getInstance() {
+		if(mongoSelect == null) {
+			mongoSelect = new MongoSelect();
+		}
+		return mongoSelect;
 	}
 	
 	/***
@@ -33,7 +42,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, 0, 0, null);
+		resultMap = mongoSelectUtils.getSelect(collection, null, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -53,7 +62,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, skip, limit, null);
+		resultMap = mongoSelectUtils.getSelect(collection, null, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -78,9 +87,9 @@ public class MongoSelect {
 		List<Object> resultMap = new ArrayList<Object>();
 		
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
-
+		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, 0, 0, null);
+		resultMap = mongoSelectUtils.getSelect(collection, option, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -110,7 +119,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, skip, limit, null);
+		resultMap = mongoSelectUtils.getSelect(collection, option, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -127,7 +136,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, filters, 0, 0, null);
+		resultMap = mongoSelectUtils.getSelect(collection, null, filters, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -148,7 +157,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, filters, skip, limit, null);
+		resultMap = mongoSelectUtils.getSelect(collection, null, filters, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -176,7 +185,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, filters, 0, 0, null);
+		resultMap = mongoSelectUtils.getSelect(collection, option, filters, 0, 0, null);
 		
 		return resultMap;
 	}
@@ -207,7 +216,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, filters, skip, limit, null);
+		resultMap = mongoSelectUtils.getSelect(collection, option, filters, skip, limit, null);
 		
 		return resultMap;
 	}
@@ -225,7 +234,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, 0, 0, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, null, 0, 0, sort);
 		
 		return resultMap;
 	}
@@ -246,7 +255,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, skip, limit, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, null, skip, limit, sort);
 		
 		return resultMap;
 	}
@@ -274,7 +283,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, 0, 0, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, option, 0, 0, sort);
 		
 		return resultMap;
 	}
@@ -305,7 +314,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, skip, limit, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, option, skip, limit, sort);
 		
 		return resultMap;
 	}
@@ -323,7 +332,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, filters, 0, 0, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, null, filters, 0, 0, sort);
 		
 		return resultMap;
 	}
@@ -345,7 +354,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, null, filters, skip, limit, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, null, filters, skip, limit, sort);
 		
 		return resultMap;
 	}
@@ -374,7 +383,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, filters, 0, 0, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, option, filters, 0, 0, sort);
 		
 		return resultMap;
 	}
@@ -406,7 +415,7 @@ public class MongoSelect {
 		MongoCollection<Document> collection = MONGO_DATABASE.getCollection(collectionName);
 		
 		// Refactor 20220114 LimDK
-		resultMap = mongoSelect.getSelect(collection, option, filters, skip, limit, sort);
+		resultMap = mongoSelectUtils.getSelect(collection, option, filters, skip, limit, sort);
 		
 		return resultMap;
 	}

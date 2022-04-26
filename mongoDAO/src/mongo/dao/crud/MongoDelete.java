@@ -10,9 +10,18 @@ import com.mongodb.client.result.DeleteResult;
 public class MongoDelete {
 
 	private MongoDatabase MONGO_DATABASE;
+
+	private static MongoDelete mongoDelete = null;
+
+	private MongoDelete() {
+		
+	}
 	
-	public MongoDelete(MongoDatabase mongoDatebase) {
-		MONGO_DATABASE = mongoDatebase;
+	public static MongoDelete getInstance() {
+		if(mongoDelete == null) {
+			mongoDelete = new MongoDelete();
+		}
+		return mongoDelete;
 	}
 	
 	/**
