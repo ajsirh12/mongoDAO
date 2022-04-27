@@ -16,17 +16,8 @@ public class MongoInsert {
 	
 	private static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
-	private static MongoInsert mongoInsert = null;
-	
-	private MongoInsert(MongoDatabase mongoDatebase) {
+	public MongoInsert(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
-	}
-	
-	public static MongoInsert getInstance(MongoDatabase mongoDatebase) {
-		if(mongoInsert == null) {
-			mongoInsert = new MongoInsert(mongoDatebase);
-		}
-		return mongoInsert;
 	}
 	
 	/***

@@ -15,17 +15,8 @@ public class MongoUpdate {
 	
 	private MongoDatabase MONGO_DATABASE;
 	
-	private static MongoUpdate mongoUpdate = null;
-	
-	private MongoUpdate(MongoDatabase mongoDatebase) {
+	public MongoUpdate(MongoDatabase mongoDatebase) {
 		MONGO_DATABASE = mongoDatebase;
-	}
-	
-	public static MongoUpdate getInstance(MongoDatabase mongoDatebase) {
-		if(mongoUpdate == null) {
-			mongoUpdate = new MongoUpdate(mongoDatebase);
-		}
-		return mongoUpdate;
 	}
 
 	/**

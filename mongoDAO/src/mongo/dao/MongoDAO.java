@@ -168,10 +168,10 @@ public class MongoDAO implements AutoCloseable {
 	 * Create MongoCRUD 
 	 */
 	protected void setMongoDatabase() {
-		mongoInsert = MongoInsert.getInstance(MONGO_DATABASE);
-		mongoSelect = MongoSelect.getInstance(MONGO_DATABASE);
-		mongoUpdate = MongoUpdate.getInstance(MONGO_DATABASE);
-		mongoDelete = MongoDelete.getInstance(MONGO_DATABASE);
+		mongoInsert = new MongoInsert(MONGO_DATABASE);
+		mongoSelect = new MongoSelect(MONGO_DATABASE);
+		mongoUpdate = new MongoUpdate(MONGO_DATABASE);
+		mongoDelete = new MongoDelete(MONGO_DATABASE);
 	}
 	
 	/***
