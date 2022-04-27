@@ -52,8 +52,6 @@ public class MongoDAO implements AutoCloseable {
 		PORT = port;
 		DB = database;
 		
-		connectMongoDB();
-		
 		REPL_SET = false;
 	}
 	
@@ -72,8 +70,6 @@ public class MongoDAO implements AutoCloseable {
 		DB = database;
 		TIMEOUT = timeout;
 		
-		connectMongoDB();
-		
 		REPL_SET = false;
 	}
 	
@@ -90,8 +86,6 @@ public class MongoDAO implements AutoCloseable {
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
-
-		connectMongoDB();
 		
 		REPL_SET = true;
 	}
@@ -110,8 +104,6 @@ public class MongoDAO implements AutoCloseable {
 		PORT_LIST = ports;
 		DB = database;
 		TIMEOUT = timeout;
-
-		connectMongoDB();
 		
 		REPL_SET = true;
 	}
