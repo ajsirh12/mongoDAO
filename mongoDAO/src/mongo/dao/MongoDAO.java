@@ -20,13 +20,13 @@ public class MongoDAO implements AutoCloseable {
 
 	protected static final MongoUtils mongoUtils = MongoUtils.getInstance();
 	
-	protected MongoInsert mongoInsert;
-	protected MongoSelect mongoSelect;
-	protected MongoUpdate mongoUpdate;
-	protected MongoDelete mongoDelete;
+	protected MongoInsert mongoInsert = null;
+	protected MongoSelect mongoSelect = null;
+	protected MongoUpdate mongoUpdate = null;
+	protected MongoDelete mongoDelete = null;
 	
-	protected MongoClient MONGO_CLIENT;
-	protected MongoDatabase MONGO_DATABASE;
+	protected MongoClient MONGO_CLIENT = null;
+	protected MongoDatabase MONGO_DATABASE = null;
 	
 	protected boolean REPL_SET = false;
 	
@@ -53,6 +53,8 @@ public class MongoDAO implements AutoCloseable {
 		DB = database;
 		
 		REPL_SET = false;
+		
+		connectMongoDB();
 	}
 	
 	/***
@@ -71,6 +73,8 @@ public class MongoDAO implements AutoCloseable {
 		TIMEOUT = timeout;
 		
 		REPL_SET = false;
+		
+		connectMongoDB();
 	}
 	
 	/***
@@ -88,6 +92,8 @@ public class MongoDAO implements AutoCloseable {
 		DB = database;
 		
 		REPL_SET = true;
+		
+		connectMongoDB();
 	}
 	
 	/***
@@ -106,6 +112,8 @@ public class MongoDAO implements AutoCloseable {
 		TIMEOUT = timeout;
 		
 		REPL_SET = true;
+		
+		connectMongoDB();
 	}
 	
 	/***
@@ -159,6 +167,7 @@ public class MongoDAO implements AutoCloseable {
 	 * @author LimDK
 	 */
 	public void disconnectMongoDB() {
+		resetMongoDatabase();
 		MONGO_DATABASE = null;
 		MONGO_CLIENT.close();
 		MONGO_CLIENT = null;
@@ -167,11 +176,29 @@ public class MongoDAO implements AutoCloseable {
 	/**
 	 * Create MongoCRUD 
 	 */
-	protected void setMongoDatabase() {
-		mongoInsert = new MongoInsert(MONGO_DATABASE);
-		mongoSelect = new MongoSelect(MONGO_DATABASE);
-		mongoUpdate = new MongoUpdate(MONGO_DATABASE);
-		mongoDelete = new MongoDelete(MONGO_DATABASE);
+	private void setMongoDatabase() {
+		if(mongoInsert == null) {
+			mongoInsert = new MongoInsert(MONGO_DATABASE);
+		}
+		if(mongoSelect == null) {
+			mongoSelect = new MongoSelect(MONGO_DATABASE);			
+		}
+		if(mongoUpdate == null) {
+			mongoUpdate = new MongoUpdate(MONGO_DATABASE);	
+		}
+		if(mongoDelete == null) {
+			mongoDelete = new MongoDelete(MONGO_DATABASE);			
+		}
+	}
+	
+	/**
+	 * set null MongoCRUD
+	 */
+	private void resetMongoDatabase() {
+		mongoInsert = null;
+		mongoSelect = null;
+		mongoUpdate = null;
+		mongoDelete = null;
 	}
 	
 	/***
