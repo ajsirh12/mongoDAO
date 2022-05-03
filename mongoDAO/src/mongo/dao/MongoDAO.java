@@ -46,8 +46,9 @@ public class MongoDAO implements AutoCloseable {
 	 * @param url
 	 * @param port
 	 * @param database
+	 * @throws Exception 
 	 */
-	public MongoDAO(String url, int port, String database) {
+	public MongoDAO(String url, int port, String database) throws Exception {
 		URL = url;
 		PORT = port;
 		DB = database;
@@ -65,8 +66,9 @@ public class MongoDAO implements AutoCloseable {
 	 * @param port
 	 * @param database
 	 * @param timeout
+	 * @throws Exception 
 	 */
-	public MongoDAO(String url, int port, String database, int timeout) {
+	public MongoDAO(String url, int port, String database, int timeout) throws Exception {
 		URL = url;
 		PORT = port;
 		DB = database;
@@ -84,9 +86,9 @@ public class MongoDAO implements AutoCloseable {
 	 * @param urls
 	 * @param ports
 	 * @param database
-	 * @throws MongoConstructorException 
+	 * @throws Exception 
 	 */
-	public MongoDAO(List<String> urls, List<Integer> ports, String database) {
+	public MongoDAO(List<String> urls, List<Integer> ports, String database) throws Exception {
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
@@ -104,8 +106,9 @@ public class MongoDAO implements AutoCloseable {
 	 * @param ports
 	 * @param database
 	 * @param timeout
+	 * @throws Exception 
 	 */
-	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout) {			
+	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout) throws Exception {			
 		URL_LIST = urls;
 		PORT_LIST = ports;
 		DB = database;
@@ -149,8 +152,9 @@ public class MongoDAO implements AutoCloseable {
 	/***
 	 * mongoDB connection
 	 * @author LimDK
+	 * @throws Exception
 	 */
-	public void connectMongoDB() {
+	public void connectMongoDB() throws Exception{
 		if(MONGO_CLIENT == null) {
 			MONGO_CLIENT = connectClient();
 		}
