@@ -19,7 +19,6 @@ import mongo.exceptions.MongoIllegalOptionException;
 
 public class MongoSelectUtils {
 
-	private static MongoSelectUtils mongoSelect = null;
 	private static final Filters FILTERS = null;
 	
 	private static final Bson sortById = FILTERS.eq(MongoConstant.IDX_ID.getValue(), 1);
@@ -28,11 +27,13 @@ public class MongoSelectUtils {
 		
 	}
 	
+
+	private static class LazyHolder{
+		public static final MongoSelectUtils SINGLETON = new MongoSelectUtils();
+	}
+	
 	public static MongoSelectUtils getInstance() {
-		if(mongoSelect == null) {
-			mongoSelect = new MongoSelectUtils();
-		}
-		return mongoSelect;
+		return LazyHolder.SINGLETON;
 	}
 	
 	/**

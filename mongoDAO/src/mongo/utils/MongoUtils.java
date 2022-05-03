@@ -20,16 +20,17 @@ public class MongoUtils {
 		
 	}
 	
+	private static class LazyHolder{
+		private static final MongoUtils SINGLETON = new MongoUtils();
+	}
+	
 	/**
 	 * Singleton
 	 * @author LimDK
 	 * @return MongoUtils
 	 */
 	public static MongoUtils getInstance() {
-		if(mongoUtils == null) {
-			mongoUtils = new MongoUtils();
-		}		
-		return mongoUtils;
+		return LazyHolder.SINGLETON;
 	}
 	
 	/**
