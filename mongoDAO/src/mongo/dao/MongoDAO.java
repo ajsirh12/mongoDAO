@@ -475,7 +475,7 @@ public class MongoDAO implements AutoCloseable {
 	 * String : List&ltString&gt <br>
 	 */
 	public List<Object> selectWhere(String collectionName, String option, Bson filters, Bson sort){
-		return selectWhere(collectionName, option, filters, sort);
+		return mongoSelect.selectWhere(collectionName, option, filters, sort);
 	}
 	
 	/**
