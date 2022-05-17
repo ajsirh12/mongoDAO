@@ -7,6 +7,7 @@ import org.bson.conversions.Bson;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
@@ -14,6 +15,7 @@ import mongo.dao.crud.MongoDelete;
 import mongo.dao.crud.MongoInsert;
 import mongo.dao.crud.MongoSelect;
 import mongo.dao.crud.MongoUpdate;
+import mongo.model.MongoAuthModel;
 import mongo.utils.MongoUtils;
 
 public class MongoDAO implements AutoCloseable {
@@ -40,7 +42,8 @@ public class MongoDAO implements AutoCloseable {
 	protected int TIMEOUT = 3000;
 	
 	/***
-	 * Do not using MongoDB ReplicaSet
+	 * Do not using MongoDB ReplicaSet <br>
+	 * authorization: disabled <br>
 	 * timeout default value = 3000ms
 	 * @author LimDK
 	 * @param url
@@ -58,9 +61,31 @@ public class MongoDAO implements AutoCloseable {
 		connectMongoDB();
 	}
 	
+	/**
+	 * Do not using MongoDB ReplicaSet <br>
+	 * authorization: enabled <br>
+	 * timeout default value = 3000ms
+	 * @author LimDK
+	 * @param url
+	 * @param port
+	 * @param database
+	 * @param auth
+	 * @throws Exception
+	 */
+	public MongoDAO(String url, int port, String database, MongoAuthModel auth) throws Exception {
+		URL = url;
+		PORT = port;
+		DB = database;
+		
+		REPL_SET = false;
+		
+		connectMongoDB(auth);
+	}
+	
 	/***
-	 * Do not using MongoDB ReplicaSet
-	 * timeout default value = 3000
+	 * Do not using MongoDB ReplicaSet <br>
+	 * authorization: disabled <br>
+	 * timeout default value = 3000ms
 	 * @author LimDK
 	 * @param url
 	 * @param port
@@ -79,9 +104,32 @@ public class MongoDAO implements AutoCloseable {
 		connectMongoDB();
 	}
 	
+	/**
+	 * Do not using MongoDB ReplicaSet <br>
+	 * authorization: enabled <br>
+	 * timeout default value = 3000ms
+	 * @param url
+	 * @param port
+	 * @param database
+	 * @param timeout
+	 * @param auth
+	 * @throws Exception
+	 */
+	public MongoDAO(String url, int port, String database, int timeout, MongoAuthModel auth) throws Exception {
+		URL = url;
+		PORT = port;
+		DB = database;
+		TIMEOUT = timeout;
+		
+		REPL_SET = false;
+		
+		connectMongoDB(auth);
+	}
+	
 	/***
-	 * Using MongoDB ReplicaSet
-	 * timeout default value = 3000
+	 * Using MongoDB ReplicaSet <br>
+	 * authorization: disabled <br>
+	 * timeout default value = 3000ms
 	 * @author LimDK
 	 * @param urls
 	 * @param ports
@@ -98,9 +146,30 @@ public class MongoDAO implements AutoCloseable {
 		connectMongoDB();
 	}
 	
+	/**
+	 * Using MongoDB ReplicaSet <br>
+	 * authorization: enabled <br>
+	 * timeout default value = 3000ms
+	 * @param urls
+	 * @param ports
+	 * @param database
+	 * @param auth
+	 * @throws Exception
+	 */
+	public MongoDAO(List<String> urls, List<Integer> ports, String database, MongoAuthModel auth) throws Exception {
+		URL_LIST = urls;
+		PORT_LIST = ports;
+		DB = database;
+		
+		REPL_SET = true;
+		
+		connectMongoDB(auth);
+	}
+	
 	/***
-	 * Using MongoDB ReplicaSet
-	 * timeout default value = 3000
+	 * Using MongoDB ReplicaSet <br>
+	 * authorization: disabled <br>
+	 * timeout default value = 3000ms
 	 * @author LimDK
 	 * @param urls
 	 * @param ports
@@ -119,8 +188,31 @@ public class MongoDAO implements AutoCloseable {
 		connectMongoDB();
 	}
 	
+	/**
+	 * Using MongoDB ReplicaSet <br>
+	 * authorization: enabled <br>
+	 * timeout default value = 3000ms
+	 * @param urls
+	 * @param ports
+	 * @param database
+	 * @param timeout
+	 * @param auth
+	 * @throws Exception
+	 */
+	public MongoDAO(List<String> urls, List<Integer> ports, String database, int timeout, MongoAuthModel auth) throws Exception {			
+		URL_LIST = urls;
+		PORT_LIST = ports;
+		DB = database;
+		TIMEOUT = timeout;
+		
+		REPL_SET = true;
+		
+		connectMongoDB(auth);
+	}
+	
 	/***
-	 * MongoClient connection
+	 * MongoClient connection <br>
+	 * authorization: disabled <br>
 	 * @author LimDK
 	 * @return
 	 */
@@ -139,6 +231,30 @@ public class MongoDAO implements AutoCloseable {
 		return client;
 	}
 	
+	/**
+	 * MongoClient connection <br>
+	 * authorization: enabled <br>
+	 * @param account
+	 * @param password
+	 * @author LimDK
+	 * @return
+	 */
+	protected MongoClient connectClient(MongoAuthModel auth) {
+		MongoClient client = null;
+		
+		MongoClientOptions options = mongoUtils.setMongoOptions(TIMEOUT);
+		MongoCredential credential = MongoCredential.createCredential(auth.getUSER(), auth.getDB(), auth.getPWD());
+		
+		if(REPL_SET) {
+			client = new MongoClient(mongoUtils.makeServerAddressList(URL_LIST, PORT_LIST), credential, options);
+		}
+		else {
+			client = new MongoClient(new ServerAddress(URL, PORT), credential, options);
+		}
+		
+		return client;
+	}
+	
 	/***
 	 * MongoDatabase connection
 	 * @author LimDK
@@ -150,13 +266,32 @@ public class MongoDAO implements AutoCloseable {
 	}
 	
 	/***
-	 * mongoDB connection
+	 * mongoDB connection <br>
+	 * authorization: disabled <br>
 	 * @author LimDK
 	 * @throws Exception
 	 */
 	public void connectMongoDB() throws Exception{
 		if(MONGO_CLIENT == null) {
 			MONGO_CLIENT = connectClient();
+		}
+		if(MONGO_DATABASE == null) {
+			MONGO_DATABASE = connectDB(MONGO_CLIENT);	
+		}
+		
+		// 20220117 LimDK add setCRUD
+		setMongoDatabase();
+	}
+	
+	/**
+	 * mongoDB connection <br>
+	 * authorization: enabled <br>
+	 * @param auth
+	 * @throws Exception
+	 */
+	public void connectMongoDB(MongoAuthModel auth) throws Exception{
+		if(MONGO_CLIENT == null) {
+			MONGO_CLIENT = connectClient(auth);
 		}
 		if(MONGO_DATABASE == null) {
 			MONGO_DATABASE = connectDB(MONGO_CLIENT);	
